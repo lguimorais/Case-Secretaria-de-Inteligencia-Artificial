@@ -2,9 +2,8 @@ import requests  # biblioteca de requisições
 import xml.etree.ElementTree as ET  # bibliotaca de processar XML
 import re
 # termos q vou utilizar como metodo de pesquissa
-termos_de_pesquisa = ["Inteligência Artificial Piauí"," SIA Piauí"]
+termos_de_pesquisa = ["Inteligência Artificial Piauí", " SIA Piauí"]
 
-# termos_de_pesquisa = ["Inteligência Artificial Piauí OR SIA Piauí"]
 
 # url base usado para pegar os conteudos
 base_url = "https://news.google.com/rss/search?q={}&hl=pt-BR&gl=BR&ceid=BR%3Apt-419"
@@ -21,9 +20,9 @@ for termo in termos_de_pesquisa:
     root = ET.fromstring(response.text)
     itens = root.findall('channel/item')
 
-    # if not itens:
-    #     print("⚠ Nenhuma notícia encontrada.")
-    #     continue
+    if not itens:
+        print("⚠ Nenhuma notícia encontrada.")
+        continue
 
     for item in itens[:Num_noticias]:
         titulo = item.find('title').text
@@ -32,8 +31,10 @@ for termo in termos_de_pesquisa:
 
         descricao_limpa = TAG_RE.sub('', descricao_bruta)
 
-        print("--- Notícia ---")
-        print(f"Título: {titulo}")
-        print(f"Link: {link}")
-        print(f"Descrição: {descricao_limpa.strip()}")
-        print("-" * 20)
+
+        # prints utilizados para verificar quais dados estavam vindo para melhor desempenho do codio
+        # print("--- Notícia ---")
+        # print(f"Título: {titulo}")
+        # print(f"Link: {link}")
+        # print(f"Descrição: {descricao_limpa.strip()}")
+        # print("-" * 20)
