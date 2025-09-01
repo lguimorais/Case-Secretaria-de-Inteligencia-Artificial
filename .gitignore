@@ -15,3 +15,5 @@ __pycache__/
 # Configurações de IDEs/editores
 .vscode/
 .idea/
+#arquivo do meu pc para mudar a cor do icone da pasta 
+.directory
