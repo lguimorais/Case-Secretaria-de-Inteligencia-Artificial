@@ -71,6 +71,7 @@ def classificacao_do_texto(texto):
     else:
         return "Neutro"
 
+
 def funcao_principal():
     for termo in termos_de_pesquisa:
         termo_formatado = termo.replace(" ", "%20")
@@ -92,7 +93,8 @@ def funcao_principal():
             texto_completo = titulo + " " + descricao_limpa
             sentimento = classificacao_do_texto(texto_completo)
             pub_date_str = item.find('pubDate').text
-            pub_date = datetime.strptime(pub_date_str, '%a, %d %b %Y %H:%M:%S GMT')
+            pub_date = datetime.strptime(
+                pub_date_str, '%a, %d %b %Y %H:%M:%S GMT')
 
             # Cria dicionário com os dados da notícia
             noticia_dict = {
@@ -103,9 +105,7 @@ def funcao_principal():
                 'Data': pub_date.strftime('%Y-%m-%d')
             }
             todas_as_noticias.append(noticia_dict)
-            
+
         # Cria um DataFrame a partir da lista de notícias e salva em JSON
         dataframe = pd.DataFrame(todas_as_noticias)
         dataframe.to_json('noticias.json', orient='records', force_ascii=False)
-
-  
