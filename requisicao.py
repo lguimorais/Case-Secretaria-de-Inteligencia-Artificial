@@ -12,6 +12,7 @@ termos_de_pesquisa = [
 base_url = "https://news.google.com/rss/search?q={}&hl=pt-BR&gl=BR&ceid=BR%3Apt-419"
 # numero de noticias q serão pesquisadas
 Num_noticias = 50
+
 palavras_positivas = [
     "avanço", "inovação", "modernização", "referência", "pioneirismo",
     "oportunidades", "gratuito", "qualificação", "capacitação", "parceria",
@@ -44,7 +45,7 @@ todas_as_noticias = []
 
 TAG_RE = re.compile(r'<[^>]+>')
 
-
+# Função que classifica o texto como Positivo, Negativo ou Neutro
 def classificacao_do_texto(texto):
     avaliacao_positiva, avaliacao_negativa = 0, 0
     texto_minusculo = texto.lower()
@@ -90,6 +91,8 @@ for termo in termos_de_pesquisa:
         descricao_limpa = TAG_RE.sub('', descricao_bruta)
         texto_completo = titulo + " " + descricao_limpa
         sentimento = classificacao_do_texto(texto_completo)
+
+        # Cria dicionário com os dados da notícia
         noticia_dict = {
             'Titulo': titulo,
             'Link': link,
@@ -97,13 +100,9 @@ for termo in termos_de_pesquisa:
             'Sentimento': sentimento
         }
         todas_as_noticias.append(noticia_dict)
+        
+    # Cria um DataFrame a partir da lista de notícias e salva em JSON
     dataframe = pd.DataFrame(todas_as_noticias)
     dataframe.to_json('noticias.json', force_ascii=False)
 
-    # prints utilizados para verificar quais dados estavam vindo para melhor desempenho do codio
-
-    # print("--- Notícia ---")
-    #     print(f"Título: {titulo}")
-    #     # print(f"Link: {link}")
-    #     print(f"Descrição: {descricao_limpa.strip()}")
-    #     print("-" * 20)
+  
