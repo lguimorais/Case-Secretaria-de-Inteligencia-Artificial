@@ -1,7 +1,9 @@
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
+import requisicao 
 
+requisicao.funcao_principal()
 dados_noticias = pd.read_json('noticias.json')
 titulo = st.title('Monitoramento de Notícias sobre IA no Piauí')
 

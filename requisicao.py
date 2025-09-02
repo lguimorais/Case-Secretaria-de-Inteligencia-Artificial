@@ -71,41 +71,41 @@ def classificacao_do_texto(texto):
     else:
         return "Neutro"
 
+def funcao_principal():
+    for termo in termos_de_pesquisa:
+        termo_formatado = termo.replace(" ", "%20")
+        url_completa = base_url.format(termo_formatado)
+        response = requests.get(url_completa)
+        root = ET.fromstring(response.text)
+        itens = root.findall('channel/item')
 
-for termo in termos_de_pesquisa:
-    termo_formatado = termo.replace(" ", "%20")
-    url_completa = base_url.format(termo_formatado)
-    response = requests.get(url_completa)
-    root = ET.fromstring(response.text)
-    itens = root.findall('channel/item')
+        if not itens:
+            print("⚠ Nenhuma notícia encontrada.")
+            continue
 
-    if not itens:
-        print("⚠ Nenhuma notícia encontrada.")
-        continue
+        for item in itens[:Num_noticias]:
+            titulo = item.find('title').text
+            link = item.find('link').text
+            descricao_bruta = item.find(
+                'description').text.replace("&nbsp;&nbsp;", " - ") or " "
+            descricao_limpa = TAG_RE.sub('', descricao_bruta)
+            texto_completo = titulo + " " + descricao_limpa
+            sentimento = classificacao_do_texto(texto_completo)
+            pub_date_str = item.find('pubDate').text
+            pub_date = datetime.strptime(pub_date_str, '%a, %d %b %Y %H:%M:%S GMT')
 
-    for item in itens[:Num_noticias]:
-        titulo = item.find('title').text
-        link = item.find('link').text
-        descricao_bruta = item.find(
-            'description').text.replace("&nbsp;&nbsp;", " - ") or " "
-        descricao_limpa = TAG_RE.sub('', descricao_bruta)
-        texto_completo = titulo + " " + descricao_limpa
-        sentimento = classificacao_do_texto(texto_completo)
-        pub_date_str = item.find('pubDate').text
-        pub_date = datetime.strptime(pub_date_str, '%a, %d %b %Y %H:%M:%S GMT')
-
-        # Cria dicionário com os dados da notícia
-        noticia_dict = {
-            'Titulo': titulo,
-            'Link': link,
-            'Descricao': descricao_limpa.strip(),
-            'Sentimento': sentimento,
-            'Data': pub_date.strftime('%Y-%m-%d')
-        }
-        todas_as_noticias.append(noticia_dict)
-        
-    # Cria um DataFrame a partir da lista de notícias e salva em JSON
-    dataframe = pd.DataFrame(todas_as_noticias)
-    dataframe.to_json('noticias.json', orient='records', force_ascii=False)
+            # Cria dicionário com os dados da notícia
+            noticia_dict = {
+                'Titulo': titulo,
+                'Link': link,
+                'Descricao': descricao_limpa.strip(),
+                'Sentimento': sentimento,
+                'Data': pub_date.strftime('%Y-%m-%d')
+            }
+            todas_as_noticias.append(noticia_dict)
+            
+        # Cria um DataFrame a partir da lista de notícias e salva em JSON
+        dataframe = pd.DataFrame(todas_as_noticias)
+        dataframe.to_json('noticias.json', orient='records', force_ascii=False)
 
   
