@@ -19,19 +19,15 @@ Certifique-se de ter o Python instalado. O projeto utiliza as seguintes bibliote
 pip install -r requirements.txt
 ```
 Execução
-Executar o Script de Coleta de Dados: O arquivo app.py é responsável por coletar, processar e salvar as notícias. Execute-o primeiro:
-
-```Bash
-python requisicao.py
-```
-
-
-
-Isso criará o arquivo noticias.json com os dados mais recentes.
-
-Iniciar a Aplicação Web: Em seguida, execute o aplicativo Streamlit para visualizar os resultados.
+Executar o Script de Coleta de Dados: O arquivo app.py ao executar clicar no botao (Coletar ou Atualizar Dados) ele é por coletar, processar e salvar as notícias quanto mais vezes clicar mais noticias sao coletadas e acrescentadas ao Json. para cada termo_de_pesquisa sao coletadas 15 noticias em que aparece aquele termo entao por vez sao coletadas 45 noticias:
 
 ```Bash
 streamlit run app.py
 ```
+
+
+
+Isso criará o arquivo noticias.json com os dados mais recentes.para cada termo_de_pesquisa sao coletadas 15 noticias em que aparece aquele termo entao por vez sao coletadas 45 noticias
+
+
 A aplicação será aberta automaticamente em seu navegador, exibindo a tabela de notícias e o gráfico de sentimentos.
