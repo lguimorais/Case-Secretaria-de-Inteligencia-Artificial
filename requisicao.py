@@ -79,7 +79,7 @@ for termo in termos_de_pesquisa:
         }
         todas_as_noticias.append(noticia_dict)
     dataframe = pd.DataFrame(todas_as_noticias)
-    dataframe.to_json('noticias.json')
+    dataframe.to_json('noticias.json', force_ascii=False)
 
     # prints utilizados para verificar quais dados estavam vindo para melhor desempenho do codio
 
