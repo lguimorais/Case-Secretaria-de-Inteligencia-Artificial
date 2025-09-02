@@ -19,7 +19,7 @@ Certifique-se de ter o Python instalado. O projeto utiliza as seguintes bibliote
 pip install -r requirements.txt
 ```
 Execução
-Executar o Script de Coleta de Dados: O arquivo requisicao.py é responsável por coletar, processar e salvar as notícias. Execute-o primeiro:
+Executar o Script de Coleta de Dados: O arquivo app.py é responsável por coletar, processar e salvar as notícias. Execute-o primeiro:
 
 ```Bash
 python requisicao.py

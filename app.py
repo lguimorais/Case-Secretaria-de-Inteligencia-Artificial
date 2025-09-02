@@ -1,7 +1,7 @@
 import pandas as pd
 import streamlit as st
 import matplotlib.pyplot as plt
-import requisicao 
+import requisicao
 
 if st.button('Coletar ou Atualizar Dados'):
     requisicao.funcao_principal()
