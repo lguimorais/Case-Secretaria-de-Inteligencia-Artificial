@@ -80,6 +80,10 @@ for termo in termos_de_pesquisa:
         todas_as_noticias.append(noticia_dict)
 dataframe = pd.DataFrame(todas_as_noticias)
 dataframe.to_json('noticias.json')
+
+
+
+
        # prints utilizados para verificar quais dados estavam vindo para melhor desempenho do codio
         # print("--- Notícia ---")
         # print(f"Título: {titulo}")
