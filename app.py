@@ -26,3 +26,8 @@ eixo_do_grafico.axis('equal')
 
 # Exibe o gráfico com Streamlit
 st.pyplot(figura)
+
+st.markdown("---")
+st.markdown("""
+_Aviso:_ Esta análise de sentimento é baseada em regras simples e pode não capturar sarcasmo ou contextos complexos. O resultado da análise pode ter vieses e limitações.
+""")
