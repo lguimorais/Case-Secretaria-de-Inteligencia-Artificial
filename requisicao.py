@@ -18,14 +18,26 @@ palavras_positivas = [
     "fortalecimento", "protagonismo", "transformação", "revolução", "inclusão",
     "integração", "proteção", "liderança", "sucesso", "premiação",
     "cooperação", "destaque", "desenvolvimento", "expansão", "educação",
-    "tecnologia", "sustentabilidade", "agilidade"
+    "tecnologia", "sustentabilidade", "agilidade", "crescimento", "valorização",
+    "eficiência", "excelência", "inédito", "otimização", "empoderamento",
+    "digitalização", "melhoria", "impacto", "potencial", "forte",
+    "segurança", "progresso", "referência nacional", "inspirador",
+    "solução", "avanços", "investimento", "visibilidade", "oportunidade"
 ]
+palavras_contextuais = ["irregularidades",
+                        "denúncia", "crime", "problema", "desafio"]
 
 palavras_negativas = [
     "golpe", "prisão", "suspeito", "matar", "homicídio", "urgente",
     "criminalidade", "irregularidades", "endividamento", "risco",
-    "problema", "pressão", "desafio", "conflito", "dependência"
+    "problema", "pressão", "desafio", "conflito", "dependência",
+    "fraude", "corrupção", "escândalo", "barreira", "falha",
+    "ameaça", "perigo", "retrocesso", "instabilidade", "dificuldade",
+    "violência", "crime", "roubo", "assalto", "sequestro",
+    "abuso", "exploração", "crise", "polêmica", "insegurança",
+    "denúncia", "atraso", "déficit", "queda", "fraudes"
 ]
+
 # lista onda ficara todas as noticias
 todas_as_noticias = []
 
@@ -43,6 +55,13 @@ def classificacao_do_texto(texto):
     for palavra in palavras_negativas:
         if palavra in texto_minusculo:
             avaliacao_negativa += 1
+
+    for contextual in palavras_contextuais:
+        if contextual in texto_minusculo:
+            if any(x in texto_minusculo for x in ["detecção", "combate", "prevenção", "monitoramento", "sistema", "tecnologia"]):
+                avaliacao_positiva += 1
+            else:
+                avaliacao_negativa += 1
 
     if avaliacao_positiva > avaliacao_negativa:
         return "Positivo"
