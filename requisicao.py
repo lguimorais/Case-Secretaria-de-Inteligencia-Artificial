@@ -78,15 +78,13 @@ for termo in termos_de_pesquisa:
             'Sentimento': sentimento
         }
         todas_as_noticias.append(noticia_dict)
-dataframe = pd.DataFrame(todas_as_noticias)
-dataframe.to_json('noticias.json')
+    dataframe = pd.DataFrame(todas_as_noticias)
+    dataframe.to_json('noticias.json')
 
+    # prints utilizados para verificar quais dados estavam vindo para melhor desempenho do codio
 
-
-
-       # prints utilizados para verificar quais dados estavam vindo para melhor desempenho do codio
-        # print("--- Notícia ---")
-        # print(f"Título: {titulo}")
-        # # print(f"Link: {link}")
-        # print(f"Descrição: {descricao_limpa.strip()}")
-        # print("-" * 20)
+    # print("--- Notícia ---")
+    #     print(f"Título: {titulo}")
+    #     # print(f"Link: {link}")
+    #     print(f"Descrição: {descricao_limpa.strip()}")
+    #     print("-" * 20)
