@@ -11,7 +11,7 @@ termos_de_pesquisa = [
 # url base usado para pegar os conteudos
 base_url = "https://news.google.com/rss/search?q={}&hl=pt-BR&gl=BR&ceid=BR%3Apt-419"
 # numero de noticias q serão pesquisadas
-Num_noticias = 50
+Num_noticias = 15
 
 palavras_positivas = [
     "avanço", "inovação", "modernização", "referência", "pioneirismo",
