@@ -2,7 +2,7 @@ import requests  # biblioteca de requisições
 import xml.etree.ElementTree as ET  # bibliotaca de processar XML
 import re
 import pandas as pd
-
+from datetime import datetime
 # termos q vou utilizar como metodo de pesquissa
 termos_de_pesquisa = [
     "Inteligência Artificial Piauí", " SIA Piauí", "IA Piauí"]
@@ -91,18 +91,21 @@ for termo in termos_de_pesquisa:
         descricao_limpa = TAG_RE.sub('', descricao_bruta)
         texto_completo = titulo + " " + descricao_limpa
         sentimento = classificacao_do_texto(texto_completo)
+        pub_date_str = item.find('pubDate').text
+        pub_date = datetime.strptime(pub_date_str, '%a, %d %b %Y %H:%M:%S GMT')
 
         # Cria dicionário com os dados da notícia
         noticia_dict = {
             'Titulo': titulo,
             'Link': link,
             'Descricao': descricao_limpa.strip(),
-            'Sentimento': sentimento
+            'Sentimento': sentimento,
+            'Data': pub_date.strftime('%Y-%m-%d')
         }
         todas_as_noticias.append(noticia_dict)
         
     # Cria um DataFrame a partir da lista de notícias e salva em JSON
     dataframe = pd.DataFrame(todas_as_noticias)
-    dataframe.to_json('noticias.json', force_ascii=False)
+    dataframe.to_json('noticias.json', orient='records', force_ascii=False)
 
   

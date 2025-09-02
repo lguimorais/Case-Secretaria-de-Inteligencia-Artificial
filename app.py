@@ -5,11 +5,32 @@ import matplotlib.pyplot as plt
 dados_noticias = pd.read_json('noticias.json')
 titulo = st.title('Monitoramento de Notícias sobre IA no Piauí')
 
+if 'Data' in dados_noticias.columns:
+    dados_noticias['Data'] = pd.to_datetime(dados_noticias['Data'])
+
+    # Adiciona filtros de data na barra lateral
+    st.sidebar.title('Filtros')
+    data_inicio = st.sidebar.date_input(
+        'Data de Início', dados_noticias['Data'].min())
+    data_fim = st.sidebar.date_input(
+        'Data de Fim', dados_noticias['Data'].max())
+
+    # Filtra o DataFrame com base no período selecionado
+    dados_filtrados = dados_noticias[
+        (dados_noticias['Data'].dt.date >= data_inicio) &
+        (dados_noticias['Data'].dt.date <= data_fim)
+    ]
+else:
+    # Se a coluna 'Data' não existir, usa o DataFrame completo
+    dados_filtrados = dados_noticias
+    st.warning(
+        "A coluna 'Data' não foi encontrada. O filtro por data não está disponível.")
+
 # Mostra a tabela de notícias interativa no Streamlit
-tabela = st.dataframe(dados_noticias)
+tabela = st.dataframe(dados_filtrados)
 
 # Conta quantas notícias possuem cada tipo de sentimento (Positivo, Negativo, Neutro)
-sentimentos = dados_noticias['Sentimento'].value_counts()
+sentimentos = dados_filtrados['Sentimento'].value_counts()
 
 # Cria uma figura e um eixo para desenhar o gráfico
 figura, eixo_do_grafico = plt.subplots()
