@@ -18,7 +18,7 @@ Certifique-se de ter o Python instalado. O projeto utiliza as seguintes bibliote
 ```bash
 pip install -r requirements.txt
 ```
-Execução
+## Execução
 Executar o Script de Coleta de Dados: O arquivo app.py ao executar clicar no botao (Coletar ou Atualizar Dados) ele é por coletar, processar e salvar as notícias quanto mais vezes clicar mais noticias sao coletadas e acrescentadas ao Json. para cada termo_de_pesquisa sao coletadas 15 noticias em que aparece aquele termo entao por vez sao coletadas 45 noticias:
 
 ```Bash
